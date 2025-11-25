@@ -28,3 +28,12 @@ int main() {
     printArr(board, board);
     return 0;
 }
+
+bool rowCheck(int arr[][9], int num, int row) {
+    for (int col= 0; col< 9 ; col++) {
+        if (num ==arr[row][col]) {
+            return true;
+        }
+    }
+    return false;
+}
