@@ -37,3 +37,12 @@ bool rowCheck(int arr[][9], int num, int row) {
     }
     return false;
 }
+
+bool columnCheck(int arr[][9], int num, int col){
+    for ( int row= 0; row< 9 ; row++) {
+        if (num ==arr[row][col]) {
+            return true;
+        }
+    }
+    return false;
+}
