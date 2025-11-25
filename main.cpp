@@ -49,6 +49,9 @@ bool columnCheck(int arr[][9], int num, int col){
 bool boxChecker(int arr[][size1], int row, int col, int num){
 
     int box;
+    bool boxChecker(int arr[][size1], int row, int col, int num){
+
+    int box;
     if (row<= 2 && row>= 0 && col>= 0 && col <= 2)
     {
         box = 1;
@@ -61,3 +64,107 @@ bool boxChecker(int arr[][size1], int row, int col, int num){
         }
         return false;
     }
+
+    if (row <= 2 && row >= 0 && col > 2 && col <= 5){
+        box = 2;
+        for (int i = 0; i <= 2; i++){
+            for (int j = 3; j <= 5; j++){
+                if (num == arr[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    if (row <= 2 && row >= 0 && col > 5 && col <= 8){
+        box = 3;
+        for (int i = 0; i <= 2; i++){
+            for (int j = 6; j <= 8; j++){
+                if (num == arr[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //pt2
+    if (row <= 5 && row > 2 && col >= 0 && col <= 2)
+    {
+        box = 4;
+        for (int i = 3; i <= 5; i++){
+            for (int j = 0; j <= 2; j++){
+                if (num == arr[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    if (row <= 5 && row > 2 && col > 2 && col <= 5)
+    {
+        box = 5;
+        for (int i = 3; i <= 5; i++){
+            for (int j = 3; j <= 5; j++){
+                if (num == arr[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    if (row <= 5 && row > 2 && col > 5 && col <= 8)
+    {
+        box = 6;
+        for (int i = 3; i <= 5; i++){
+            for (int j = 6; j <= 8; j++){
+                if (num == arr[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //pt3
+    if (row <= 8 && row > 5 && col >= 0 && col <= 2){
+        box = 7;
+        for (int i = 6; i <= 8; i++){
+            for (int j = 0; j <= 2; j++){
+                if (num == arr[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    if (row <= 8 && row > 5 && col > 2 && col <= 5)
+    {
+        box = 8;
+        for (int i = 6; i <= 8; i++){
+            for (int j = 3; j <= 5; j++){
+                if (num == arr[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    if (row <= 8 && row > 5 && col > 5 && col <= 8){
+        box = 9;
+        for (int i = 6; i <= 8; i++){
+            for (int j = 6; j <= 8; j++){
+                if (num == arr[i][j]){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    return false;
+}
