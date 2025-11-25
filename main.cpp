@@ -222,3 +222,10 @@ void printArr(int arr[][size1], int i_a[][size1]){
         }
     }
 }
+
+bool isValid(int arr[][size1], int row, int col, int num) {
+    if (columnCheck(arr, row, col)&& rowCheck(arr, row, col)&& boxChecker(arr, row, col, num)) {
+        return true;
+    }
+    return false;
+}
