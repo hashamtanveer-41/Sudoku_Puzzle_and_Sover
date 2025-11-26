@@ -6,8 +6,6 @@ using namespace std;
 
 // Global variable declaration
 const int size1 = 9;
-const int r = 9;
-const int c = 9;
 
 // Function prototypes
 bool rowCheck(int arr[][size1], int , int);
@@ -20,12 +18,17 @@ void makePuzzle(int arr[][size1], int holes);
 bool solveSudoku(int arr[][size1], int row, int col) ;
 int main() {
     srand(time(0));
-    srand(time(0));
+
     int board[size1][size1] = {0};
+
     solveSudoku(board, 0, 0); // generate solved board
+
     printArr(board);
+
     makePuzzle(board, 40); // remove 40 cells for puzzle
+
     printArr(board);
+
     return 0;
 }
 
@@ -87,7 +90,7 @@ void makePuzzle(int arr[][size1], int holes) {
         if (arr[r][c] != 0)
             arr[r][c] = 0;
         else
-            holes++;
+            holes++;   // try again
     }
 }
 bool solveSudoku(int arr[][size1], int row, int col) {
