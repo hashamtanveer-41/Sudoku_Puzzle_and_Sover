@@ -15,7 +15,7 @@ void printArr(int arr[][size1]);
 bool isValid(int arr[][size1], int , int , int);
 void randomNumbers(int nums[]);
 void makePuzzle(int arr[][size1], int holes);
-
+bool solveSudoku(int arr[][size1], int row, int col) ;
 int main() {
     srand(time(0));
     srand(time(0));
@@ -87,4 +87,29 @@ void makePuzzle(int arr[][size1], int holes) {
         else
             holes++;
     }
+}
+bool solveSudoku(int arr[][size1], int row, int col) {
+    if (row == 9) return true;
+
+    if (col == 9) return solveSudoku(arr, row + 1, 0);
+
+    if (arr[row][col] != 0)
+        return solveSudoku(arr, row, col + 1);
+
+    int nums[9];
+    randomNumbers(nums);   // <-- shuffle numbers each call
+
+    for (int i = 0; i < 9; i++) {
+        int num = nums[i];
+
+        if (isValid(arr, row, col, num)) {
+            arr[row][col] = num;
+
+            if (solveSudoku(arr, row, col + 1))
+                return true;
+        }
+    }
+
+    arr[row][col] = 0;
+    return false;
 }
