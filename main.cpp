@@ -29,7 +29,7 @@ int main() {
     return 0;
 }
 
-bool rowCheck(int arr[][9], int num, int row) {
+bool rowCheck(int arr[][9], int row, int num) {
     for (int col= 0; col< 9 ; col++) {
         if (num ==arr[row][col]) {
             return true;
@@ -221,8 +221,6 @@ void printArr(int arr[][size1], int i_a[][size1]){
 }
 
 bool isValid(int arr[][size1], int row, int col, int num) {
-    if (columnCheck(arr, row, col)&& rowCheck(arr, row, col)&& boxChecker(arr, row, col, num)) {
-        return true;
-    }
-    return false;
+    return columnCheck(arr, col, num)&& rowCheck(arr, row, num)&& boxChecker(arr, row, col, num);
+
 }
