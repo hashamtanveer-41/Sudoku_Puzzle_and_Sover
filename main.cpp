@@ -48,9 +48,6 @@ bool columnCheck(int arr[][9], int num, int col){
 }
 bool boxChecker(int arr[][size1], int row, int col, int num) {
     int box;
-    bool boxChecker(int arr[][size1], int row, int col, int num){
-
-        int box;
         if (row<= 2 && row>= 0 && col>= 0 && col <= 2)
         {
             box = 1;
