@@ -20,17 +20,11 @@ void makePuzzle(int arr[][size1], int holes);
 
 int main() {
     srand(time(0));
-
     int board[size1][size1] = {0};
-
-    solveSudoku(board, 0, 0); // generate solved board
-
+    solveSudoku(board, 0, 0);
     printArr(board);
-
-    makePuzzle(board, 40); // remove 40 cells for puzzle
-
+    makePuzzle(board, 40); 
     printArr(board);
-
     return 0;
 }
 
@@ -50,12 +44,10 @@ bool columnCheck(int arr[][size1], int col, int num) {
 bool boxChecker(int arr[][size1], int row, int col, int num) {
     int startRow = row - row % 3;
     int startCol = col - col % 3;
-
     for (int i = 0; i < 3; i++)
         for (int j = 0; j < 3; j++)
             if (arr[startRow + i][startCol + j] == num)
                 return false;
-
     return true;
 }
 
@@ -88,7 +80,7 @@ void makePuzzle(int arr[][size1], int holes) {
         if (arr[r][c] != 0)
             arr[r][c] = 0;
         else
-            holes++;   // try again
+            holes++;  
     }
 }
 bool solveSudoku(int arr[][size1], int row, int col) {
@@ -100,7 +92,7 @@ bool solveSudoku(int arr[][size1], int row, int col) {
         return solveSudoku(arr, row, col + 1);
 
     int nums[9];
-    randomNumbers(nums);   // <-- shuffle numbers each call
+    randomNumbers(nums);  
 
     for (int i = 0; i < 9; i++) {
         int num = nums[i];
