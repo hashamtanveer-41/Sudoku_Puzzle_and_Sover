@@ -11,7 +11,7 @@ const int c = 9;
 bool rowCheck(int arr[][size1], int , int);
 bool columnCheck(int arr[][size1], int , int );
 bool boxChecker(int arr[][size1], int , int , int);
-void printArr(int arr[][size1], int i_a[][size1]);
+void printArr(int arr[][size1]);
 bool isValid(int arr[][size1], int , int , int);
 
 int main() {
@@ -165,61 +165,17 @@ bool boxChecker(int arr[][size1], int row, int col, int num) {
         return false;
     }
 }
-
-void printArr(int arr[][size1], int i_a[][size1]){
-    cout << "\n";
-    cout << "\n";
-    cout << "\t";
-    cout << "   ";
-    for (int i = 1; i <= size1; i++) {
-        cout << i << " ";
-        if (i == 3){
-            cout <<"  ";
-        }
-        if (i == 6) {
-            cout << "  ";
-        }
-    }
-    cout << "\n";
-    cout << "\t";
-
-    for (int i = 0; i < 25; i++){
-        cout << "_";
-    }
-    cout << endl;
-    cout << "\t";
-    for (int i = 0; i < 25; i++){
-        cout << "-";
-    }
-    cout << "\n";
-
-    for (int i = 0; i < size1; i++){
-        cout << "\t" << i + 1;
-        cout << "| ";
-
-        for (int j = 0; j < 9; j++){
+void printArr(int arr[][size1]) {
+    cout << "\nGenerated Sudoku:\n\n";
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
             cout << arr[i][j] << " ";
-            if (j == 2 || j == 5 || j == 8){
-                cout << "| ";
-            }
+            if (j % 3 == 2) cout << "  ";
         }
-        cout << endl;
-
-        if (i == 2 || i == 5 || i == 8){
-            cout << "\t";
-            for (int i = 0; i <= 25; i++){
-                cout << "_";
-            }
-            cout << endl;
-            cout << "\t";
-            for (int i = 0; i < 25; i++){
-                cout << "-";
-            }
-            cout << "\n";
-        }
+        cout << "\n";
+        if (i % 3 == 2) cout << "\n";
     }
 }
-
 bool isValid(int arr[][size1], int row, int col, int num) {
     return columnCheck(arr, col, num)&& rowCheck(arr, row, num)&& boxChecker(arr, row, col, num);
 
