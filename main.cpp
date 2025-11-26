@@ -13,19 +13,17 @@ bool columnCheck(int arr[][size1], int , int );
 bool boxChecker(int arr[][size1], int , int , int);
 void printArr(int arr[][size1]);
 bool isValid(int arr[][size1], int , int , int);
+void randomNumbers(int nums[]);
+void makePuzzle(int arr[][size1], int holes);
 
 int main() {
     srand(time(0));
-    int board[size1][size1] = { { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9},
-    { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9},
-    { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9},
-    { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9},
-    { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9},
-    { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9},
-    { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9},
-    { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9},
-    { rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9,rand()%9}};
-    printArr(board, board);
+    srand(time(0));
+    int board[size1][size1] = {0};
+    solveSudoku(board, 0, 0); // generate solved board
+    printArr(board);
+    makePuzzle(board, 40); // remove 40 cells for puzzle
+    printArr(board);
     return 0;
 }
 
@@ -179,4 +177,21 @@ void printArr(int arr[][size1]) {
 bool isValid(int arr[][size1], int row, int col, int num) {
     return columnCheck(arr, col, num)&& rowCheck(arr, row, num)&& boxChecker(arr, row, col, num);
 
+}
+void randomNumbers(int nums[]) {
+    for (int i = 0; i < 9; i++)
+        nums[i] = i + 1;
+
+    random_shuffle(nums, nums + 9);
+}
+void makePuzzle(int arr[][size1], int holes) {
+    while (holes--) {
+        int r = rand() % 9;
+        int c = rand() % 9;
+
+        if (arr[r][c] != 0)
+            arr[r][c] = 0;
+        else
+            holes++;
+    }
 }
