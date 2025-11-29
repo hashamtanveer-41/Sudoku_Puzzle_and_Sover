@@ -31,30 +31,40 @@ void printStats(double timeTaken); // prints game stats in the end like time,att
 int main() {
     srand(time(0));
 
-    int board[size1][size1] = {0};
+    int board[9][9] = {0};
 
-    clock_t start = clock();
+    // Generate a full solved sudoku
     solveSudoku(board, 0, 0);
-    clock_t end = clock();
 
-    double timeTaken = double(end - start) / CLOCKS_PER_SEC;
-
-    cout << "\n\n--- FULL SOLVED BOARD ---\n";
-    printArr(board);
-    printStats(timeTaken);
-
+    // Remove numbers to create puzzle
     makePuzzle(board, 40);
 
     cout << "\n--- PUZZLE WITH HOLES ---\n";
     printArr(board);
 
-    playGame(board);
-    solveSudoku(board, 0, 0);
-    printArr(board);
-    makePuzzle(board, 40); 
-    printArr(board);
+    int choice;
+    cout << "1. Play Sudoku manually\n";
+    cout << "2. Auto-solve Sudoku\n";
+    cout << "Enter choice: ";
+    cin >> choice;
+
+    if (choice == 1) {
+        playGame(board);
+    }
+    else {
+        clock_t start = clock();
+        solveSudoku(board, 0, 0);
+        clock_t end = clock();
+
+        double timeTaken = double(end - start) / CLOCKS_PER_SEC;
+        cout << "\n\n--- FULL SOLVED BOARD ---\n";
+        printArr(board);
+        printStats(timeTaken);
+    }
+
     return 0;
 }
+
 
 bool rowCheck(int arr[][size1], int row, int num) {
     for (int col = 0; col < 9; col++)
@@ -128,25 +138,20 @@ bool solveSudoku(int arr[][size1], int row, int col) {
     for (int i = 0; i < 9; i++) {
         int num = nums[i];
         attempts++;
-        randomNumbers(nums);
 
-        for (int i = 0; i < 9; i++) {
-            int num = nums[i];
+        if (isValid(arr, row, col, num)) {
+            arr[row][col] = num;
 
-            if (isValid(arr, row, col, num)) {
-                arr[row][col] = num;
+            if (solveSudoku(arr, row, col + 1))
+                return true;
 
-                if (solveSudoku(arr, row, col + 1))
-                    return true;
-
-                backtracks++;
-            }
+            arr[row][col] = 0;
+            backtracks++;
         }
-
-        arr[row][col] = 0;
-        return false;
     }
+    return false;
 }
+
 // initialized by ASFAND
 bool isBoardFull(int arr[][size1]) {
     for (int i = 0; i < 9; i++)
