@@ -1,6 +1,110 @@
 #include <iostream>
+#include <algorithm>
+#include <ctime>
 using namespace std;
 
+
+// Global variable declaration
+const int size1 = 9;
+
+// Function prototypes
+bool rowCheck(int arr[][size1], int row, int num);
+bool columnCheck(int arr[][size1], int col, int num);
+bool boxChecker(int arr[][size1], int row, int col, int num);
+bool isValid(int arr[][size1], int row, int col, int num);
+bool solveSudoku(int arr[][size1], int row, int col);
+void printArr(int arr[][size1]);
+void randomNumbers(int nums[]);
+void makePuzzle(int arr[][size1], int holes);
+
+
 int main() {
+    srand(time(0));
+    int board[size1][size1] = {0};
+    solveSudoku(board, 0, 0);
+    printArr(board);
+    makePuzzle(board, 40); 
+    printArr(board);
     return 0;
+}
+
+bool rowCheck(int arr[][size1], int row, int num) {
+    for (int col = 0; col < 9; col++)
+        if (arr[row][col] == num)
+            return false;
+    return true;
+}
+
+bool columnCheck(int arr[][size1], int col, int num) {
+    for (int row = 0; row < 9; row++)
+        if (arr[row][col] == num)
+            return false;
+    return true;
+}
+bool boxChecker(int arr[][size1], int row, int col, int num) {
+    int startRow = row - row % 3;
+    int startCol = col - col % 3;
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            if (arr[startRow + i][startCol + j] == num)
+                return false;
+    return true;
+}
+
+void printArr(int arr[][size1]) {
+    cout << "\nGenerated Sudoku:\n\n";
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            cout << arr[i][j] << " ";
+            if (j % 3 == 2) cout << "  ";
+        }
+        cout << "\n";
+        if (i % 3 == 2) cout << "\n";
+    }
+}
+bool isValid(int arr[][size1], int row, int col, int num) {
+    return columnCheck(arr, col, num)&& rowCheck(arr, row, num)&& boxChecker(arr, row, col, num);
+
+}
+void randomNumbers(int nums[]) {
+    for (int i = 0; i < 9; i++)
+        nums[i] = i + 1;
+
+    random_shuffle(nums, nums + 9);
+}
+void makePuzzle(int arr[][size1], int holes) {
+    while (holes--) {
+        int r = rand() % 9;
+        int c = rand() % 9;
+
+        if (arr[r][c] != 0)
+            arr[r][c] = 0;
+        else
+            holes++;  
+    }
+}
+bool solveSudoku(int arr[][size1], int row, int col) {
+    if (row == 9) return true;
+
+    if (col == 9) return solveSudoku(arr, row + 1, 0);
+
+    if (arr[row][col] != 0)
+        return solveSudoku(arr, row, col + 1);
+
+    int nums[9];
+    randomNumbers(nums);  
+
+    for (int i = 0; i < 9; i++) {
+        int num = nums[i];
+
+        if (isValid(arr, row, col, num)) {
+            arr[row][col] = num;
+
+            if (solveSudoku(arr, row, col + 1))
+                return true;
+        }
+    }
+
+    arr[row][col] = 0;
+    return false;
 }
