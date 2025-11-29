@@ -1,6 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <ctime>
+#include <iomanip>
 using namespace std;
 
 
@@ -29,20 +30,41 @@ void playGame(int arr[][size1]); // makes user enter the values and quit the gam
 void printStats(double timeTaken); // prints game stats in the end like time,attempts,backtracks etc
 
 int main() {
-    srand(time(0));
+        srand(time(0));
+    int choice;
 
     int board[9][9] = {0};
 
+
     // Generate a full solved sudoku
     solveSudoku(board, 0, 0);
+    cout<<"================================================="<<endl;
+    cout<<setw(30)<<"Sudoku  \t "<<endl;
+    cout<<"================================================="<<endl;
 
     // Remove numbers to create puzzle
-    makePuzzle(board, 40);
+    cout<<"Choose difficulty level: \n";
+    cout<<"1. Easy "<<endl;
+    cout<<"2. Medium "<<endl;
+    cout<<"3. Difficult "<<endl;
+    cin>> choice;
+    switch (choice) {
+        case 1:
+            makePuzzle(board, 25);
+            break;
+        case 2:
+            makePuzzle(board, 30);
+            break;
+        case 3:
+            makePuzzle(board, 40);
+            break;
+    }
+
 
     cout << "\n--- PUZZLE WITH HOLES ---\n";
     printArr(board);
 
-    int choice;
+
     cout << "1. Play Sudoku manually\n";
     cout << "2. Auto-solve Sudoku\n";
     cout << "Enter choice: ";
