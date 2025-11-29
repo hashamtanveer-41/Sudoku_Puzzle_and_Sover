@@ -13,6 +13,10 @@ int attempts = 0;
 int backtracks = 0;
 
 // these function were made by HASHAM (thanks hasham ❤️❤️)
+// Global variable declaration
+const int size1 = 9;
+
+// Function prototypes
 bool rowCheck(int arr[][size1], int row, int num);
 bool columnCheck(int arr[][size1], int col, int num);
 bool boxChecker(int arr[][size1], int row, int col, int num);
@@ -50,6 +54,13 @@ int main() {
 
     playGame(board);
 
+int main() {
+    srand(time(0));
+    int board[size1][size1] = {0};
+    solveSudoku(board, 0, 0);
+    printArr(board);
+    makePuzzle(board, 40); 
+    printArr(board);
     return 0;
 }
 
@@ -85,6 +96,8 @@ bool isValid(int arr[][size1], int row, int col, int num) {
 
 void printArr(int arr[][size1]) {
     cout << "\n";
+void printArr(int arr[][size1]) {
+    cout << "\nGenerated Sudoku:\n\n";
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
             cout << arr[i][j] << " ";
@@ -101,6 +114,16 @@ void randomNumbers(int nums[]) {
     random_shuffle(nums, nums + 9);
 }
 
+bool isValid(int arr[][size1], int row, int col, int num) {
+    return columnCheck(arr, col, num)&& rowCheck(arr, row, num)&& boxChecker(arr, row, col, num);
+
+}
+void randomNumbers(int nums[]) {
+    for (int i = 0; i < 9; i++)
+        nums[i] = i + 1;
+
+    random_shuffle(nums, nums + 9);
+}
 void makePuzzle(int arr[][size1], int holes) {
     while (holes--) {
         int r = rand() % 9;
@@ -117,6 +140,14 @@ void makePuzzle(int arr[][size1], int holes) {
 bool solveSudoku(int arr[][size1], int row, int col) {
     if (row == 9) return true;
     if (col == 9) return solveSudoku(arr, row + 1, 0);
+            holes++;  
+    }
+}
+bool solveSudoku(int arr[][size1], int row, int col) {
+    if (row == 9) return true;
+
+    if (col == 9) return solveSudoku(arr, row + 1, 0);
+
     if (arr[row][col] != 0)
         return solveSudoku(arr, row, col + 1);
 
@@ -126,6 +157,10 @@ bool solveSudoku(int arr[][size1], int row, int col) {
     for (int i = 0; i < 9; i++) {
         int num = nums[i];
         attempts++;
+    randomNumbers(nums);  
+
+    for (int i = 0; i < 9; i++) {
+        int num = nums[i];
 
         if (isValid(arr, row, col, num)) {
             arr[row][col] = num;
