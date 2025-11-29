@@ -12,10 +12,6 @@ const int size1 = 9;
 int attempts = 0;
 int backtracks = 0;
 
-// these function were made by HASHAM (thanks hasham ❤️❤️)
-// Global variable declaration
-const int size1 = 9;
-
 // Function prototypes
 bool rowCheck(int arr[][size1], int row, int num);
 bool columnCheck(int arr[][size1], int col, int num);
@@ -53,10 +49,6 @@ int main() {
     printArr(board);
 
     playGame(board);
-
-int main() {
-    srand(time(0));
-    int board[size1][size1] = {0};
     solveSudoku(board, 0, 0);
     printArr(board);
     makePuzzle(board, 40); 
@@ -88,14 +80,6 @@ bool boxChecker(int arr[][size1], int row, int col, int num) {
     return true;
 }
 
-bool isValid(int arr[][size1], int row, int col, int num) {
-    return columnCheck(arr, col, num) &&
-           rowCheck(arr, row, num) &&
-           boxChecker(arr, row, col, num);
-}
-
-void printArr(int arr[][size1]) {
-    cout << "\n";
 void printArr(int arr[][size1]) {
     cout << "\nGenerated Sudoku:\n\n";
     for (int i = 0; i < 9; i++) {
@@ -118,12 +102,7 @@ bool isValid(int arr[][size1], int row, int col, int num) {
     return columnCheck(arr, col, num)&& rowCheck(arr, row, num)&& boxChecker(arr, row, col, num);
 
 }
-void randomNumbers(int nums[]) {
-    for (int i = 0; i < 9; i++)
-        nums[i] = i + 1;
 
-    random_shuffle(nums, nums + 9);
-}
 void makePuzzle(int arr[][size1], int holes) {
     while (holes--) {
         int r = rand() % 9;
@@ -133,14 +112,6 @@ void makePuzzle(int arr[][size1], int holes) {
             arr[r][c] = 0;
         else
             holes++;
-    }
-}
-
-// Initialized by ASFAND
-bool solveSudoku(int arr[][size1], int row, int col) {
-    if (row == 9) return true;
-    if (col == 9) return solveSudoku(arr, row + 1, 0);
-            holes++;  
     }
 }
 bool solveSudoku(int arr[][size1], int row, int col) {
@@ -157,23 +128,24 @@ bool solveSudoku(int arr[][size1], int row, int col) {
     for (int i = 0; i < 9; i++) {
         int num = nums[i];
         attempts++;
-    randomNumbers(nums);  
+        randomNumbers(nums);
 
-    for (int i = 0; i < 9; i++) {
-        int num = nums[i];
+        for (int i = 0; i < 9; i++) {
+            int num = nums[i];
 
-        if (isValid(arr, row, col, num)) {
-            arr[row][col] = num;
+            if (isValid(arr, row, col, num)) {
+                arr[row][col] = num;
 
-            if (solveSudoku(arr, row, col + 1))
-                return true;
+                if (solveSudoku(arr, row, col + 1))
+                    return true;
 
-            backtracks++;
+                backtracks++;
+            }
         }
-    }
 
-    arr[row][col] = 0;
-    return false;
+        arr[row][col] = 0;
+        return false;
+    }
 }
 // initialized by ASFAND
 bool isBoardFull(int arr[][size1]) {
