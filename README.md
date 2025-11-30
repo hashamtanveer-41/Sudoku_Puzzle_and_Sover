@@ -44,4 +44,6 @@ It also tracks solver statistics such as attempts, backtracks, and time taken.
 
 
 ## Example Gameplay
+<img width="953" height="461" alt="image" src="https://github.com/user-attachments/assets/b07b1368-a747-4b0c-89b4-23b7d2e8fced" />
+
 
